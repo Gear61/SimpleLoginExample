@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SimpleLoginExample</string>
+
+    <string name="facebook_app_id">1631293416946221</string>
+    <string name="fb_login_protocol_scheme">fb1631293416946221</string>
+    <string name="facebook_icon">{ion-social-facebook}</string>
+    <string name="facebook">Facebook</string>
+</resources>
