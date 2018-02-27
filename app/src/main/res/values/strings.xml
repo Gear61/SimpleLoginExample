@@ -9,4 +9,10 @@
         We failed to log you in with Facebook.
         Please try again later.
     </string>
+
+    <string name="google">Google</string>
+    <string name="google_login_fail">
+        We failed to log you in with Google.
+        Please try again later.
+    </string>
 </resources>
