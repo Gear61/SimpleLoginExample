@@ -1,19 +1,23 @@
-package com.randomappsinc.simpleloginexample;
+package com.randomappsinc.simpleloginexample.onboarding;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.randomappsinc.simpleloginexample.R;
+import com.randomappsinc.simpleloginexample.utils.UIUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class FacebookLoginManager {
+
+    private static final String TAG = FacebookLoginManager.class.getSimpleName();
 
     private static final List<String> FACEBOOK_PERMISSIONS = Arrays.asList("public_profile", "email");
 
@@ -47,7 +51,7 @@ public class FacebookLoginManager {
         @Override
         public void onSuccess(LoginResult loginResult) {
             String accessToken = loginResult.getAccessToken().getToken();
-            Toast.makeText(MyApplication.getAppContext(), accessToken, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Access token: " + accessToken);
         }
 
         @Override
@@ -55,7 +59,7 @@ public class FacebookLoginManager {
 
         @Override
         public void onError(FacebookException error) {
-
+            UIUtils.showLongToast(R.string.facebook_login_fail);
         }
     };
 }

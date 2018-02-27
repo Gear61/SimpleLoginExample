@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleloginexample;
+package com.randomappsinc.simpleloginexample.utils;
 
 import android.app.Application;
 import android.content.Context;
