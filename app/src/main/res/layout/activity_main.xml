@@ -33,4 +33,10 @@
             android:textSize="27dp"
             android:textColor="@color/white"/>
     </LinearLayout>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_button"
+        android:layout_below="@id/facebook_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
 </RelativeLayout>
