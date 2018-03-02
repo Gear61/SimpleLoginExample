@@ -19,6 +19,9 @@ public class FacebookLoginManager {
     private static final List<String> FACEBOOK_PERMISSIONS = Arrays.asList("public_profile", "email");
 
     public interface Listener {
+        // Invoked when we have successfully fetched the token and are onboarding with our server
+        void onLoginStart();
+
         void onLoginSuccessful();
 
         void onLoginFailed();
@@ -64,6 +67,7 @@ public class FacebookLoginManager {
     private final FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
+            listener.onLoginStart();
             String accessToken = loginResult.getAccessToken().getToken();
             // TODO: Send access token to server to onboard
         }
@@ -73,7 +77,6 @@ public class FacebookLoginManager {
 
         @Override
         public void onError(FacebookException error) {
-            listener.onLoginFailed();
             UIUtils.showLongToast(R.string.facebook_login_fail);
         }
     };

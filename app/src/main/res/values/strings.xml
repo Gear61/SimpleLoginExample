@@ -15,4 +15,11 @@
         We failed to log you in with Google.
         Please try again later.
     </string>
+    <string name="google_login_invalid_account">
+        We failed to log you in with Google, because your account is invalid.
+    </string>
+    <string name="google_login_network_issue">
+        We failed to log you in with Google due to network issues.
+        Verify your internet connection, and please try again.
+    </string>
 </resources>

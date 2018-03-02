@@ -7,6 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.randomappsinc.simpleloginexample.R;
@@ -20,6 +21,9 @@ public class GoogleLoginManager {
     private static final String SERVER_OAUTH_ID = "956612316816-n23cs49obd4fmn1qgs4abhqs7t3f6fnd.apps.googleusercontent.com";
 
     public interface Listener {
+        // Invoked when we have successfully fetched the token and are onboarding with our server
+        void onLoginStart();
+
         void onLoginSuccessful();
 
         void onLoginFailed();
@@ -60,12 +64,24 @@ public class GoogleLoginManager {
         this.listener = listener;
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         try {
+            listener.onLoginStart();
             GoogleSignInAccount account = task.getResult(ApiException.class);
             String idToken = account.getIdToken();
-            // TODO: Send ID token to server to onboard with Google
-        } catch (ApiException e) {
-            UIUtils.showLongToast(R.string.google_login_fail);
-            listener.onLoginFailed();
+        } catch (ApiException exception) {
+            int errorCode = exception.getStatusCode();
+            switch (errorCode) {
+                case GoogleSignInStatusCodes.INVALID_ACCOUNT:
+                    UIUtils.showLongToast(R.string.google_login_invalid_account);
+                    break;
+                case GoogleSignInStatusCodes.NETWORK_ERROR:
+                    UIUtils.showLongToast(R.string.google_login_network_issue);
+                    break;
+                case GoogleSignInStatusCodes.SIGN_IN_FAILED:
+                case GoogleSignInStatusCodes.INTERNAL_ERROR:
+                default:
+                    UIUtils.showLongToast(R.string.google_login_fail);
+                    break;
+            }
         }
     }
 
