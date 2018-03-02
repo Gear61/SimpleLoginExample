@@ -9,6 +9,7 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.randomappsinc.simpleloginexample.R;
+import com.randomappsinc.simpleloginexample.api.RestClient;
 import com.randomappsinc.simpleloginexample.utils.UIUtils;
 
 import java.util.Arrays;
@@ -69,7 +70,7 @@ public class FacebookLoginManager {
         public void onSuccess(LoginResult loginResult) {
             listener.onLoginStart();
             String accessToken = loginResult.getAccessToken().getToken();
-            // TODO: Send access token to server to onboard
+            RestClient.getInstance().loginWithFacebook(accessToken);
         }
 
         @Override
@@ -80,4 +81,13 @@ public class FacebookLoginManager {
             UIUtils.showLongToast(R.string.facebook_login_fail);
         }
     };
+
+    public void onFacebookLoginError() {
+        UIUtils.showLongToast(R.string.facebook_login_fail);
+        listener.onLoginFailed();
+    }
+
+    public void onFacebookLoginSuccess() {
+        listener.onLoginSuccessful();
+    }
 }

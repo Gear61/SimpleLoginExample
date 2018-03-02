@@ -9,6 +9,7 @@
         We failed to log you in with Facebook.
         Please try again later.
     </string>
+    <string name="logging_in_facebook">Logging you in with Facebook&#8230;</string>
 
     <string name="google">Google</string>
     <string name="google_login_fail">
@@ -22,4 +23,5 @@
         We failed to log you in with Google due to network issues.
         Verify your internet connection, and please try again.
     </string>
+    <string name="logging_in_google">Logging you in with Google&#8230;</string>
 </resources>

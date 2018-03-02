@@ -39,4 +39,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.6.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 }
