@@ -24,4 +24,10 @@
         Verify your internet connection, and please try again.
     </string>
     <string name="logging_in_google">Logging you in with Google&#8230;</string>
+
+    <string name="log_out">Log out</string>
+
+    <string name="log_out_title">Confirm Log Out</string>
+    <string name="log_out_body">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
 </resources>

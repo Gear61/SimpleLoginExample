@@ -61,4 +61,12 @@ public class PreferencesManager {
                 .putString(USER_PROFILE_PICTURE_URL_KEY, profileInfo.getProfilePictureUrl())
                 .apply();
     }
+
+    public void logOut() {
+        prefs.edit()
+                .remove(USER_NAME_KEY)
+                .remove(USER_EMAIL_KEY)
+                .remove(USER_PROFILE_PICTURE_URL_KEY)
+                .apply();
+    }
 }

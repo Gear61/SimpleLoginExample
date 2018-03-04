@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.randomappsinc.simpleloginexample.R;
+import com.randomappsinc.simpleloginexample.api.RestClient;
 import com.randomappsinc.simpleloginexample.utils.UIUtils;
 
 public class GoogleLoginManager {
@@ -64,9 +65,10 @@ public class GoogleLoginManager {
         this.listener = listener;
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         try {
-            listener.onLoginStart();
             GoogleSignInAccount account = task.getResult(ApiException.class);
             String idToken = account.getIdToken();
+            RestClient.getInstance().loginWithGoogle(idToken);
+            listener.onLoginStart();
         } catch (ApiException exception) {
             int errorCode = exception.getStatusCode();
             switch (errorCode) {
@@ -78,14 +80,26 @@ public class GoogleLoginManager {
                     break;
                 case GoogleSignInStatusCodes.SIGN_IN_FAILED:
                 case GoogleSignInStatusCodes.INTERNAL_ERROR:
-                default:
                     UIUtils.showLongToast(R.string.google_login_fail);
                     break;
             }
         }
     }
 
+    public void onGoogleLoginSuccess() {
+        listener.onLoginSuccessful();
+    }
+
+    public void onGoogleLoginError() {
+        UIUtils.showLongToast(R.string.google);
+        listener.onLoginFailed();
+    }
+
     public void unregisterListener() {
         listener = null;
+    }
+
+    public void logOut(Activity activity) {
+        GoogleSignIn.getClient(activity, signInOptions).signOut();
     }
 }

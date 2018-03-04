@@ -4,7 +4,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 import com.randomappsinc.simpleloginexample.api.callbacks.FacebookLoginCallback;
+import com.randomappsinc.simpleloginexample.api.callbacks.GoogleLoginCallback;
 import com.randomappsinc.simpleloginexample.api.models.FacebookLoginRequestBody;
+import com.randomappsinc.simpleloginexample.api.models.GoogleLoginRequestBody;
 import com.randomappsinc.simpleloginexample.api.models.UserProfileInfo;
 
 import retrofit2.Call;
@@ -50,6 +52,20 @@ public class RestClient {
                 FacebookLoginRequestBody requestBody = new FacebookLoginRequestBody(accessToken);
                 currentLoginCall = onboardingService.loginWithFacebook(requestBody);
                 currentLoginCall.enqueue(new FacebookLoginCallback());
+            }
+        });
+    }
+
+    public void loginWithGoogle(final String idToken) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (currentLoginCall != null) {
+                    currentLoginCall.cancel();
+                }
+                GoogleLoginRequestBody requestBody = new GoogleLoginRequestBody(idToken);
+                currentLoginCall = onboardingService.loginWithGoogle(requestBody);
+                currentLoginCall.enqueue(new GoogleLoginCallback());
             }
         });
     }
