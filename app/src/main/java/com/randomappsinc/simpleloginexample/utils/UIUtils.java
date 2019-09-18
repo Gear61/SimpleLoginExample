@@ -1,7 +1,8 @@
 package com.randomappsinc.simpleloginexample.utils;
 
-import android.support.annotation.StringRes;
 import android.widget.Toast;
+
+import androidx.annotation.StringRes;
 
 public class UIUtils {
 

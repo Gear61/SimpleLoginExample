@@ -2,6 +2,7 @@ package com.randomappsinc.simpleloginexample.onboarding;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -9,7 +10,6 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.randomappsinc.simpleloginexample.R;
-import com.randomappsinc.simpleloginexample.api.RestClient;
 import com.randomappsinc.simpleloginexample.utils.UIUtils;
 
 import java.util.Arrays;
@@ -68,9 +68,10 @@ public class FacebookLoginManager {
     private final FacebookCallback<LoginResult> facebookCallback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-            listener.onLoginStart();
+            // listener.onLoginStart();
             String accessToken = loginResult.getAccessToken().getToken();
-            RestClient.getInstance().loginWithFacebook(accessToken);
+            Log.d("Facebook Token", accessToken);
+            // RestClient.getInstance().loginWithFacebook(accessToken);
         }
 
         @Override

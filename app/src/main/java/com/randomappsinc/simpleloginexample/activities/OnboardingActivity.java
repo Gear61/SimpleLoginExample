@@ -2,7 +2,8 @@ package com.randomappsinc.simpleloginexample.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.simpleloginexample.R;

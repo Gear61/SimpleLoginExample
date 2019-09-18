@@ -2,6 +2,7 @@ package com.randomappsinc.simpleloginexample.onboarding;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -11,7 +12,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.randomappsinc.simpleloginexample.R;
-import com.randomappsinc.simpleloginexample.api.RestClient;
 import com.randomappsinc.simpleloginexample.utils.UIUtils;
 
 public class GoogleLoginManager {
@@ -19,7 +19,8 @@ public class GoogleLoginManager {
     // If you are using this class, don't have an activity request code with the same value!
     public static final int GOOGLE_SIGN_IN_CODE = 350;
 
-    private static final String SERVER_OAUTH_ID = "956612316816-n23cs49obd4fmn1qgs4abhqs7t3f6fnd.apps.googleusercontent.com";
+    private static final String SERVER_OAUTH_ID = "956612316816-n23cs49obd4fmn1qgs4abhqs7t3f6fnd" +
+            ".apps.googleusercontent.com";
 
     public interface Listener {
         // Invoked when we have successfully fetched the token and are onboarding with our server
@@ -67,8 +68,9 @@ public class GoogleLoginManager {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             String idToken = account.getIdToken();
-            RestClient.getInstance().loginWithGoogle(idToken);
-            listener.onLoginStart();
+            Log.d("Google Token", idToken);
+            // RestClient.getInstance().loginWithGoogle(idToken);
+            // listener.onLoginStart();
         } catch (ApiException exception) {
             int errorCode = exception.getStatusCode();
             switch (errorCode) {
@@ -78,8 +80,7 @@ public class GoogleLoginManager {
                 case GoogleSignInStatusCodes.NETWORK_ERROR:
                     UIUtils.showLongToast(R.string.google_login_network_issue);
                     break;
-                case GoogleSignInStatusCodes.SIGN_IN_FAILED:
-                case GoogleSignInStatusCodes.INTERNAL_ERROR:
+                default:
                     UIUtils.showLongToast(R.string.google_login_fail);
                     break;
             }

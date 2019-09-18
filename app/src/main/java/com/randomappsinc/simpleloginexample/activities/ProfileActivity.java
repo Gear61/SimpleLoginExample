@@ -2,19 +2,17 @@ package com.randomappsinc.simpleloginexample.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.login.LoginManager;
 import com.randomappsinc.simpleloginexample.R;
 import com.randomappsinc.simpleloginexample.api.models.UserProfileInfo;
 import com.randomappsinc.simpleloginexample.onboarding.GoogleLoginManager;
 import com.randomappsinc.simpleloginexample.persistence.PreferencesManager;
-import com.randomappsinc.simpleloginexample.utils.MyApplication;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -34,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         UserProfileInfo profileInfo = PreferencesManager.get().getUserProfile();
-        Picasso.with(MyApplication.getAppContext()).load(profileInfo.getProfilePictureUrl()).into(userImage);
+        Picasso.get().load(profileInfo.getProfilePictureUrl()).into(userImage);
         userName.setText(profileInfo.getName());
         userEmail.setText(profileInfo.getEmail());
     }
@@ -54,12 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .content(R.string.log_out_body)
                 .positiveText(R.string.yes)
                 .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        onLogOutConfirmed();
-                    }
-                })
+                .onPositive((dialog, which) -> onLogOutConfirmed())
                 .show();
     }
 }
